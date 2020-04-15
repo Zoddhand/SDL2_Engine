@@ -89,7 +89,7 @@ bool Collision::ItemCollect(Map* map, int x, int y, int tile, int newTile)
 		}
 		return true;
 	}
-	if (map->getItemTile(x + 1.0f, y + 1.0f) == tile)
+	if (map->getItemTile(x + 1.0f, y + 0.0f) == tile)
 	{
 		if (newTile != -1)
 		{

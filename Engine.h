@@ -6,13 +6,31 @@
 #include <SDL_mixer.h>
 
 
+
 class Engine
 {
 private:
 	//Sound Variables Set enum to sound effect ie. jump.
 	Mix_Music* Bg = NULL;
-	Mix_Chunk* effect[10];
 	enum{ E1, E2 };
+	int style = 0;
+	struct Control
+	{
+		bool Up;
+		bool Down;
+		bool Left;
+		bool Right;
+		bool Start;
+		bool Back;
+		bool LeftShoulder;
+		bool RightShoulder;
+		bool AButton;
+		bool BButton;
+		bool XButton;
+		bool YButton;
+		int16_t StickX;
+		int16_t StickY;
+	};
 
 public:
 	Engine(const char* , int , int , bool);
@@ -30,6 +48,8 @@ public:
 	static const int mapSizeX = 80;
 	static const int mapSizeY = 30;
 	static float time;
+	static Control cont;
+	static Mix_Chunk* effect[10];
 
 	//Static Functions.
 
@@ -38,5 +58,8 @@ public:
 	void update();
 	void render();
 	void playBG();
+	void Controller();
+	void controllerInit();
+	void hud();
 };
 

@@ -10,6 +10,8 @@ using namespace std;
 #include "Sound.h"
 
 float Engine::time;
+Engine::Control Engine::cont;
+Mix_Chunk* Engine::effect[10];
 
 SDL_Window* Engine::window = nullptr;
 SDL_Renderer* Engine::renderer = nullptr;
@@ -20,12 +22,10 @@ Player* player = nullptr;
 Collision* col = nullptr;
 Sound* sound = nullptr;
 
-
-
 Engine::Engine(const char* title, int posX, int posY, bool fullscreen)
 {
 	int scale = 3.0f;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) < 0)
 	{
 		print("Error: SDL NOT INITIALIZED -" << SDL_GetError())
 	}
@@ -44,11 +44,15 @@ Engine::Engine(const char* title, int posX, int posY, bool fullscreen)
 	SDL_RenderSetScale(renderer, scale, scale);
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
-	Bg = Sound::loadBackground("Assets/Sound/BG.wav");
+	
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
 		print("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 	}
+	Bg = Sound::loadBackground("Assets/Sound/BG.wav");
+	Engine::effect[0] = Sound::loadEffect("Assets/sound/COIN.wav");
+
+	controllerInit();
 
 	camera = new Camera();
 	map = new Map();
@@ -71,6 +75,8 @@ Engine::~Engine()
 
 void Engine::handle_event(float time)
 {
+	
+	Controller();
 	/* gets items in the event queue */
 	SDL_PollEvent(&event);
 	switch (event.type)
@@ -88,10 +94,17 @@ void Engine::handle_event(float time)
 		case SDLK_ESCAPE:
 			run = false;
 			break;
+		case SDLK_1:
+			map->loadLevel(1);
+			style = 0;
+			break;
+		case SDLK_2:
+			map->loadLevel(2);
+			style = 1;
+			break;
 		}
 	}
-	
-	player->Movement();
+	player->Movement(style);
 }
 
 void Engine::update()
@@ -108,11 +121,12 @@ void Engine::render()
 	SDL_RenderClear(renderer);
 	map->render();
 	player->render();
+	hud();
 	SDL_RenderPresent(renderer);
 }
 
 void Engine::playBG()
 {
-	Sound::setVolume(50);
+	Sound::setVolume(128);
 	Sound::playBackground(Bg,1);
 }

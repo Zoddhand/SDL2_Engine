@@ -34,7 +34,6 @@ public:
 	void render();
 	void loadMap(std::string txt, int arr[Engine::mapSizeY][Engine::mapSizeX]);
 	void drawMap(int arr[Engine::mapSizeY][Engine::mapSizeX]);
-	void loadLevel();
 	void drawBackground();
 	void loadLevel(int level);
 
