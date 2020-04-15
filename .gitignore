@@ -17,15 +17,7 @@
 .vs/SDL2_Engine/v16/ipch/AutoPCH/994f56570aa449db/MAIN.ipch
 .vs/SDL2_Engine/v16/ipch/AutoPCH/d7d7d16cb2fca7ac/TEXTUREMANAGER.ipch
 .vs/SDL2_Engine/v16/ipch/AutoPCH/da5d2f13a09dd444/MAP.ipch
-ASSETS/Maps/tiled_example.tmx
-ASSETS/Maps/tiled_example_Col Layer.csv
-ASSETS/Maps/tiled_example_Item Layer.csv
-ASSETS/Maps/tiled_example_Tile Layer 1.csv
-ASSETS/Maps/tiled_example_Tile Layer 2.csv
-ASSETS/Sound/BG.wav
 ASSETS/Sprites/Hero.png
-ASSETS/Sprites/Red_coin.png
-ASSETS/Tiles/tile_example.png
 Debug/Camera.obj
 Debug/camera.obj.enc
 Debug/Collision.obj
